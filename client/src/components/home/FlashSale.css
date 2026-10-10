@@ -1,0 +1,58 @@
+.flash {
+  margin-top: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.flash-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.flash-head h3 {
+  font-size: 22px;
+  color: var(--danger);
+}
+
+.countdown {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+}
+
+.countdown span {
+  margin-right: 8px;
+  color: var(--muted);
+}
+
+.countdown b {
+  background: var(--primary);
+  color: #fff;
+  padding: 6px 8px;
+  border-radius: 4px;
+  min-width: 32px;
+  text-align: center;
+}
+
+.see-all {
+  color: var(--accent-dark);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.see-all:hover {
+  text-decoration: underline;
+}
+
+.flash-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
