@@ -6,7 +6,20 @@ import "./Checkout.css";
 function Checkout() {
   const { items, totalItems, totalPrice } = useCart();
   const navigate = useNavigate();
+
   const [payment, setPayment] = useState("mobile");
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    email: "",
+    town: "",
+    address: "",
+  });
+  const [sending, setSending] = useState(false);
+  const [error, setError] = useState("");
+
+  const update = (field) => (e) =>
+    setForm((prev) => ({ ...prev, [field]: e.target.value }));
 
   if (items.length === 0) {
     return (
@@ -20,9 +33,39 @@ function Checkout() {
     );
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    navigate("/order-success");
+    setSending(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          customer: form,
+          payment,
+          items: items.map((i) => ({ id: i.id, qty: i.qty })),
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || "Could not place the order");
+      }
+
+      navigate("/order-success", {
+        state: { orderNumber: data.orderNumber, total: data.total },
+      });
+    } catch (err) {
+      setError(
+        err.message === "Failed to fetch"
+          ? "Could not reach the server. Is it running?"
+          : err.message
+      );
+      setSending(false);
+    }
   };
 
   return (
@@ -35,22 +78,45 @@ function Checkout() {
 
           <label>
             Full name
-            <input type="text" required placeholder="Your full name" />
+            <input
+              type="text"
+              required
+              placeholder="Your full name"
+              value={form.name}
+              onChange={update("name")}
+            />
           </label>
 
           <label>
             Phone number
-            <input type="tel" required placeholder="07XX XXX XXX" />
+            <input
+              type="tel"
+              required
+              placeholder="07XX XXX XXX"
+              value={form.phone}
+              onChange={update("phone")}
+            />
           </label>
 
           <label>
             Email (optional)
-            <input type="email" placeholder="you@example.com" />
+            <input
+              type="email"
+              placeholder="you@example.com"
+              value={form.email}
+              onChange={update("email")}
+            />
           </label>
 
           <label>
             Town / City
-            <input type="text" required placeholder="Where should we deliver?" />
+            <input
+              type="text"
+              required
+              placeholder="Where should we deliver?"
+              value={form.town}
+              onChange={update("town")}
+            />
           </label>
 
           <label>
@@ -59,6 +125,8 @@ function Checkout() {
               required
               rows="3"
               placeholder="Street, building, landmark"
+              value={form.address}
+              onChange={update("address")}
             />
           </label>
 
@@ -114,8 +182,14 @@ function Checkout() {
             <span>KES {totalPrice.toLocaleString()}</span>
           </div>
 
-          <button type="submit" className="checkout-btn">
-            Place Order
+          {error && (
+            <p style={{ color: "var(--danger)", fontSize: "14px", marginBottom: "12px" }}>
+              {error}
+            </p>
+          )}
+
+          <button type="submit" className="checkout-btn" disabled={sending}>
+            {sending ? "Placing order..." : "Place Order"}
           </button>
         </div>
       </form>

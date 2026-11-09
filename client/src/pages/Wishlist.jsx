@@ -1,10 +1,20 @@
 import { Link } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import { products } from "../data/products";
+import { useProducts } from "../context/ProductsContext";
 import { useWishlist } from "../context/WishlistContext";
 
 function Wishlist() {
+  const { products, loading, error } = useProducts();
   const { ids } = useWishlist();
+
+  if (loading) {
+    return <p>Loading wishlist...</p>;
+  }
+
+  if (error) {
+    return <p style={{ color: "var(--danger)" }}>{error}</p>;
+  }
+
   const saved = products.filter((p) => ids.includes(p.id));
 
   if (saved.length === 0) {

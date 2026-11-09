@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import ProductCard from "../ProductCard";
-import { products } from "../../data/products";
+import { useProducts } from "../../context/ProductsContext";
 import "./FlashSale.css";
 
 function getTimeLeft() {
@@ -18,12 +18,17 @@ function getTimeLeft() {
 const pad = (n) => String(n).padStart(2, "0");
 
 function FlashSale() {
+  const { products } = useProducts();
   const [time, setTime] = useState(getTimeLeft());
 
   useEffect(() => {
     const timer = setInterval(() => setTime(getTimeLeft()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  const flashItems = products.filter((p) => p.flash);
+
+  if (flashItems.length === 0) return null;
 
   return (
     <section className="flash">
@@ -41,7 +46,7 @@ function FlashSale() {
       </div>
 
       <div className="flash-grid">
-        {products.filter((p) => p.flash).map((p) => (
+        {flashItems.map((p) => (
           <ProductCard key={p.id} product={p} />
         ))}
       </div>

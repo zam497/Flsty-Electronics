@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import { products } from "../data/products";
+import { useProducts } from "../context/ProductsContext";
 
 const controlStyle = {
   padding: "10px 14px",
@@ -11,6 +11,7 @@ const controlStyle = {
 };
 
 function Products() {
+  const { products, loading, error } = useProducts();
   const [params] = useSearchParams();
   const [sort, setSort] = useState("default");
   const [maxPrice, setMaxPrice] = useState("");
@@ -83,21 +84,22 @@ function Products() {
         </div>
       </div>
 
-      {sorted.length === 0 ? (
-        <p>No products found.</p>
-      ) : (
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
-            gap: "20px",
-          }}
-        >
-          {sorted.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
-      )}
+      {loading && <p>Loading products...</p>}
+      {error && <p style={{ color: "var(--danger)" }}>{error}</p>}
+
+      {!loading && !error && sorted.length === 0 && <p>No products found.</p>}
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fill, minmax(260px, 1fr))",
+          gap: "20px",
+        }}
+      >
+        {sorted.map((p) => (
+          <ProductCard key={p.id} product={p} />
+        ))}
+      </div>
     </section>
   );
 }
