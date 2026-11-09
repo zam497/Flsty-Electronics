@@ -1,0 +1,12 @@
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 12px 28px;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.btn:hover {
+  background: var(--accent-dark);
+}

@@ -1,0 +1,31 @@
+.benefits {
+  margin-top: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.benefit-icon {
+  font-size: 30px;
+  color: var(--accent-dark);
+  display: flex;
+}
+
+.benefit h4 {
+  font-size: 15px;
+}
+
+.benefit p {
+  font-size: 13px;
+  color: var(--muted);
+}
