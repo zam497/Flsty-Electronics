@@ -1,0 +1,84 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  min-height: 380px;
+  background: linear-gradient(135deg, #1f2a0f, #72ab04);
+  color: #fff;
+  border-radius: 16px;
+  padding: 40px 60px;
+  overflow: hidden;
+}
+
+.hero-badge {
+  display: inline-block;
+  background: #fff;
+  color: var(--accent-dark);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+}
+
+.hero h2 {
+  font-size: 48px;
+  line-height: 1.15;
+  margin-bottom: 14px;
+}
+
+.hero p {
+  font-size: 18px;
+  margin-bottom: 28px;
+  max-width: 440px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero .btn {
+  background: #fff;
+  color: var(--accent-dark);
+}
+
+.hero .btn:hover {
+  background: #f0f0f0;
+}
+
+.hero .btn-outline {
+  background: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.hero .btn-outline:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.hero-image {
+  font-size: 200px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    flex-direction: column-reverse;
+    text-align: center;
+    padding: 32px 20px;
+  }
+  .hero h2 {
+    font-size: 32px;
+  }
+  .hero-image {
+    font-size: 110px;
+  }
+  .hero-buttons {
+    justify-content: center;
+  }
+}

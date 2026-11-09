@@ -1,0 +1,135 @@
+.topbar {
+  background: var(--accent);
+  color: #fff;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px;
+}
+
+.header {
+  background: var(--primary);
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.search {
+  flex: 1;
+  display: flex;
+}
+
+.search input {
+  flex: 1;
+  padding: 11px 14px;
+  border: none;
+  border-radius: 6px 0 0 6px;
+  font-size: 15px;
+  outline: none;
+}
+
+.search button {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+  padding: 0 18px;
+  border-radius: 0 6px 6px 0;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.search button:hover {
+  background: var(--accent-dark);
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-size: 22px;
+}
+
+.icon-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.badge {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: var(--danger);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.categories {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.categories-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.categories-inner a {
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  border-bottom: 3px solid transparent;
+}
+
+.categories-inner a:hover {
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  .header-main {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .search {
+    order: 3;
+    flex-basis: 100%;
+  }
+  .header-actions {
+    margin-left: auto;
+  }
+}
